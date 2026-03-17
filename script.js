@@ -10,10 +10,10 @@ const musicaFocoImput = document.querySelector("#alternar-musica");
 const iniciarOuPausarBt = document.querySelector("#start-pause span");
 const icone = document.querySelector(".app__card-primary-button-icon");
 const tempoNaTela = document.querySelector("#timer");
-const musica = new Audio("/sons/sons_luna-rise-part-one.mp3");
-const playSom = new Audio("/sons/sons_play.wav");
-const pauseSom = new Audio("/sons/sons_pause.mp3");
-const beepSom = new Audio("/sons/sons_beep.mp3");
+const musica = new Audio("./sons/sons_luna-rise-part-one.mp3");
+const playSom = new Audio("./sons/sons_play.wav");
+const pauseSom = new Audio("./sons/sons_pause.mp3");
+const beepSom = new Audio("./sons/sons_beep.mp3");
 
 let estaEmPlay = true;
 let tempoDecorridoSegundos = 1500;
@@ -58,7 +58,7 @@ function alterarContexto(contexto) {
     contexto.classList.remove("active");
   });
   html.setAttribute("data-contexto", contexto);
-  banner.setAttribute("src", `/imagens/${contexto}.png`);
+  banner.setAttribute("src", `./imagens/${contexto}.png`);
   switch (contexto) {
     case "foco":
       titulo.innerHTML = `Otimize sua produtividade,
@@ -97,7 +97,7 @@ function iniciarOuPausar() {
     pauseSom.currentTime = 0;
     pauseSom.play();
 
-    icone.src = "imagens/play_arrow.png";
+    icone.src = "/imagens/play_arrow.png";
 
     zerar();
     return;
@@ -105,7 +105,7 @@ function iniciarOuPausar() {
 
   playSom.play();
 
-  icone.src = "imagens/pause.png";
+  icone.src = "/imagens/pause.png";
 
   intervaloID = setInterval(contagemRegreciva, 1000);
   iniciarOuPausarBt.textContent = "Pausar";
