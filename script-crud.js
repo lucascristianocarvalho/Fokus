@@ -1,11 +1,23 @@
 // encontar o botão adicionar tarefa
 
 const btnAdicionarTarefa = document.querySelector(".app__button--add-task");
-const formAdicionarTarefa = document.querySelector(".app__form-add-task ");
+const formAdicionarTarefa = document.querySelector(".app__form-add-task");
 const textarea = document.querySelector(".app__form-textarea");
 const ulTarefas = document.querySelector(".app__section-task-list");
+const botaoCancelar = document.querySelector(
+  ".app__form-footer__button--cancel",
+);
 
 const tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+
+function atualizarTarefas() {
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+}
+
+function cancelarTarefa() {
+  textarea.value = "";
+  formAdicionarTarefa.classList.add("hidden");
+}
 
 function criarElementoTarefa(tarefa) {
   const li = document.createElement("li");
@@ -27,11 +39,21 @@ function criarElementoTarefa(tarefa) {
   const botao = document.createElement("button");
   botao.classList.add("app_button-edit");
 
+  botao.onclick = () => {
+    debugger;
+    const novaDescricao = prompt("Qual é o novo nome da tarefa?");
+    console.log("nova descrição da tarefa: ", novaDescricao);
+    if (novaDescricao) {
+      paragrafo.textContent = novaDescricao;
+      tarefa.descricao = novaDescricao;
+      atualizarTarefas();
+    }
+  };
+
   const imagemBotao = document.createElement("img");
-  imagemBotao.setAttribute("src", "/imagens/edit.png");
+  imagemBotao.setAttribute("src", "./imagens/edit.png");
 
   botao.append(imagemBotao);
-
   li.append(svg);
   li.append(paragrafo);
   li.append(botao);
@@ -51,7 +73,7 @@ formAdicionarTarefa.addEventListener("submit", (evento) => {
   tarefas.push(tarefa);
   const elementoDaTarefa = criarElementoTarefa(tarefa);
   ulTarefas.append(elementoDaTarefa);
-  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+  atualizarTarefas();
   textarea.value = "";
   formAdicionarTarefa.classList.add("hidden");
 });
@@ -59,4 +81,9 @@ formAdicionarTarefa.addEventListener("submit", (evento) => {
 tarefas.forEach((tarefa) => {
   const elementoTarefa = criarElementoTarefa(tarefa);
   ulTarefas.append(elementoTarefa);
+});
+
+botaoCancelar.addEventListener("click", (e) => {
+  e.preventDefault();
+  cancelarTarefa();
 });
