@@ -83,6 +83,11 @@ const contagemRegreciva = () => {
   if (tempoDecorridoSegundos <= 0) {
     beepSom.play();
     alert("tempo finalizado");
+    const focoAtivo = html.getAttribute("data-contexto") == "foco";
+    if (focoAtivo) {
+      const evento = new CustomEvent('FocoFinalizado')
+      document.dispatchEvent(evento)
+    }
     zerar();
     return;
   }
@@ -118,7 +123,7 @@ function zerar() {
 }
 
 function mostrarTempo() {
-  const tempo = new Date(tempoDecorridoSegundos * 1000);
+  const tempo = new Date(tempoDecorridoSegundos * 10);
   const tempoFormatado = tempo.toLocaleTimeString("pt-Br", {
     minute: "2-digit",
     second: "2-digit",
