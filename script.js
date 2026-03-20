@@ -16,7 +16,7 @@ const pauseSom = new Audio("./sons/sons_pause.mp3");
 const beepSom = new Audio("./sons/sons_beep.mp3");
 
 let estaEmPlay = true;
-let tempoDecorridoSegundos = 1500;
+let tempoDecorridoSegundos = 15;
 let intervaloID = null;
 musica.loop = true;
 
@@ -29,7 +29,7 @@ musicaFocoImput.addEventListener("change", () => {
 });
 
 focoBt.addEventListener("click", () => {
-  tempoDecorridoSegundos = 1500;
+  tempoDecorridoSegundos = 15;
   alterarContexto("foco");
   focoBt.classList.add("active");
   /*  html.setAttribute("data-contexto", "foco");
@@ -85,8 +85,8 @@ const contagemRegreciva = () => {
     alert("tempo finalizado");
     const focoAtivo = html.getAttribute("data-contexto") == "foco";
     if (focoAtivo) {
-      const evento = new CustomEvent('FocoFinalizado')
-      document.dispatchEvent(evento)
+      const evento = new CustomEvent("FocoFinalizado");
+      document.dispatchEvent(evento);
     }
     zerar();
     return;
@@ -123,7 +123,7 @@ function zerar() {
 }
 
 function mostrarTempo() {
-  const tempo = new Date(tempoDecorridoSegundos * 10);
+  const tempo = new Date(tempoDecorridoSegundos * 1000);
   const tempoFormatado = tempo.toLocaleTimeString("pt-Br", {
     minute: "2-digit",
     second: "2-digit",
